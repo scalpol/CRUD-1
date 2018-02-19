@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</h1>
+<br>
+
+<h3>Agregar producto nuevo</h3>
+<%= form_with(model: [@category, @product], local:true) do |form| %>
+  <%= form.label :nombre_del_producto %>
+  <%= form.text_field :name %>
+  <br>
+  <%= form.label :precio %>
+  <%= form.number_field :price %>
+  <br>
+  <%= form.submit %>
+<% end %>
+<br>
+
+<h3>Productos</h3>
+<% unless @products.nil? %>
+  <table>
+    <thead>
+      <td>Nombre</td>
+      <td>Precio</td>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td>
+            <%= product.name %>
+          </td>
+          <td>
+            <%= product.price %>
+          </td>
+          <td>
+            <%= link_to 'borrar', category_product_path(@category, product), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
